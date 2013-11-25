@@ -43,29 +43,43 @@ var checkForWinner = function () {
   }
 };
 
+$('#start_button').on('click', function(e) {
+  $("#board").fadeIn();
+  spaces = [
+  NaN, NaN, NaN,
+  NaN, NaN, NaN,
+  NaN, NaN, NaN
+];
+//  THIS IS UNFINISHED... NEED TO "RESET CLASS BACK TO ORIGINAL"
+})
+
+
 $(document).on('click', '#board .space', function (e) {
   var spaceNum = $(e.currentTarget).index();
   console.log('You clicked on space #' + spaceNum);
-    if (spaces[spaceNum]) {
-      alert("that space is already taken")
-    }
-    else { 
-      spaces[spaceNum] = currentPlayer
-    }
+  
+  if (spaces[spaceNum]) {
+    alert("that space is already taken");
+  }
+  else {
+    // Space is open to play 
+    spaces[spaceNum] = currentPlayer;
+    $('#board .space:eq(' + spaceNum + ')').addClass(currentPlayer);
+
+    checkForWinner();
+    setNextTurn();
+  }
 
   // Mark the space with the current player's name
   // TODO: Don't mark it unless the space is blank
   // Add class to elem so css can take care of the visuals
+  
 
-  $('#board .space:eq(' + spaceNum + ')').addClass(currentPlayer);
-
-  checkForWinner();
-  setNextTurn();
 });
 
 $(document).on('game-win', function (e, winner) {
   // TODO: Alert who won the game
-  alert( winner + " is the WINNER!");
+  alert(winner + " is the WINNER!");
 });
 
 // Start the game
